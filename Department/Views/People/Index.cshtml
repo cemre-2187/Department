@@ -1,0 +1,70 @@
+﻿@model IEnumerable<Department.Models.Person>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BeginDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Grad)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.sex)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Tecnology)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Prim)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.JobId)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.Name)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.BeginDate)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Grad)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.sex)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Tecnology)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Prim)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.JobId.JobName)
+        @Html.DisplayFor(modelItem => item.JobId.DepartmentId.DepartmentName)
+    </td>
+    <td>
+        @Html.ActionLink("Edit", "Edit", new { id = item.PersonId }) |
+        @Html.ActionLink("Details", "Details", new { id = item.PersonId }) |
+        @Html.ActionLink("Delete", "Delete", new { id = item.PersonId })
+    </td>
+</tr>
+}
+
+</table>

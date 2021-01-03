@@ -1,0 +1,409 @@
+﻿@model IEnumerable<Department.Models.Person>
+@{
+    ViewBag.Title = "Index";
+}
+
+
+<div class="preloader">
+    <div class="lds-ripple">
+        <div class="lds-pos"></div>
+        <div class="lds-pos"></div>
+    </div>
+</div>
+<!-- ============================================================== -->
+<!-- Main wrapper - style you can find in pages.scss -->
+<!-- ============================================================== -->
+<div id="main-wrapper" data-layout="vertical" data-navbarbg="skin5" data-sidebartype="full" data-sidebar-position="absolute" data-header-position="absolute" data-boxed-layout="full">
+    <!-- ============================================================== -->
+    <!-- Topbar header - style you can find in pages.scss -->
+    <!-- ============================================================== -->
+    <!-- ============================================================== -->
+    <!-- End Topbar header -->
+    <!-- ============================================================== -->
+    <!-- ============================================================== -->
+    <!-- Left Sidebar - style you can find in sidebar.scss  -->
+    <!-- ============================================================== -->
+    <aside class="left-sidebar" data-sidebarbg="skin6">
+        <!-- Sidebar scroll-->
+        <div class="scroll-sidebar">
+            <!-- Sidebar navigation-->
+            <nav class="sidebar-nav">
+                <ul id="sidebarnav">
+                    <!-- User Profile-->
+
+                   
+                    <!-- User Profile-->
+                    <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="index.html" aria-expanded="false"><i class="mdi mdi-view-dashboard"></i><span class="hide-menu">Dashboard</span></a></li>
+
+
+                </ul>
+
+            </nav>
+            <!-- End Sidebar navigation -->
+        </div>
+        <!-- End Sidebar scroll-->
+    </aside>
+    <!-- ============================================================== -->
+    <!-- End Left Sidebar - style you can find in sidebar.scss  -->
+    <!-- ============================================================== -->
+    <!-- ============================================================== -->
+    <!-- Page wrapper  -->
+    <!-- ============================================================== -->
+    <div class="page-wrapper">
+        <!-- ============================================================== -->
+        <!-- Bread crumb and right sidebar toggle -->
+        <!-- ============================================================== -->
+        <div class="page-breadcrumb">
+            <div class="row align-items-center">
+                <div class="col-5">
+                    <h4 class="page-title">Dashboard</h4>
+                    <div class="d-flex align-items-center">
+
+                    </div>
+                </div>
+                <div class="col-7">
+
+                </div>
+            </div>
+        </div>
+        <!-- ============================================================== -->
+        <!-- End Bread crumb and right sidebar toggle -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- Container fluid  -->
+        <!-- ============================================================== -->
+        <div class="container-fluid">
+            <!-- ============================================================== -->
+            <!-- Sales chart -->
+            <!-- ============================================================== -->
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="d-md-flex align-items-center">
+                                <div>
+                                    <h4 class="card-title">Personel Geliri</h4>
+                                    <h5 class="card-subtitle">Personellerin Gelir ve Primlerinin Toplamı</h5>
+                                </div>
+                                <div class="ml-auto d-flex no-block align-items-center">
+                                  
+                                </div>
+                            </div>
+                            <div class="row">
+                                <!-- column -->
+                                <div class="col-lg-12">
+                                    <div class="campaign ct-charts"></div>
+                                </div>
+                                <!-- column -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-body">
+
+                            <div id="piechart"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- ============================================================== -->
+            <!-- Sales chart -->
+            <!-- ============================================================== -->
+            <!-- ============================================================== -->
+            <!-- Table -->
+            <!-- ============================================================== -->
+            <div class="row">
+                <!-- column -->
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <!-- title -->
+                            <div class="d-md-flex align-items-center">
+                                <div>
+                                    <h4 class="card-title">Personel Listesi</h4>
+                                    <h5 class="card-subtitle">Buradan Filtreleme yapabilirsiniz.</h5>
+                                </div>
+
+
+                                @using (Html.BeginForm())
+                                {
+                                    <div class="form-group mx-sm-3 mb-2">
+                                         @Html.TextBox("SearchString")
+                                        <button type="submit" class="btn btn-primary mb-2 mt-3" value="submit">Ara</button>
+                                        </div>
+                                    }
+                               
+                            <div class="ml-3" style="border:1px solid black">
+
+
+
+
+                                @using (Html.BeginForm())
+                                {
+                                    <div class="form-row">
+                                        <div class="form-group col-md-6">
+                                            <span>Min Prim</span>
+                                            <p>
+                                                @Html.TextBox("MinString")
+                                            </p>
+                                          
+                                            
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <span>Max Prim</span>
+                                            <p>
+                                                @Html.TextBox("MaxString")
+                                            </p> 
+                                        </div>
+                                    </div>
+                                  
+                                    
+                                        <button type="submit" class="btn btn-primary mb-2 mt-3" value="submit">Ara</button>
+                                    
+                                }
+
+                            </div>
+                                <div class="ml-auto">
+                                    <div class="dl">
+                                        <p class="btn btn-success" style="color:white">
+                                            @Html.ActionLink("İsme Göre Sırala", "Index", new { sortOrder = ViewBag.NameSortParm })
+                                        </p>
+                                        <p class="btn btn-success" style="color:white">
+                                            @Html.ActionLink("Prime Göre Sırala", "Index", new { sortPrim = ViewBag.PrimSortParm })
+                                        </p>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- title -->
+                            </div>
+                        <div class="table-responsive">
+                            <table class="table v-middle">
+                                <thead>
+                                    <tr class="bg-light">
+                                        <th class="border-top-0">Personel Adı Soyadı</th>
+                                        <th class="border-top-0">Görevi</th>
+                                        <th class="border-top-0">Mezuniyeti</th>
+                                        <th class="border-top-0">Yetenek</th>
+
+                                        <th class="border-top-0">Primi</th>
+                                        <th class="border-top-0">Maaşı</th>
+                                        <th class="border-top-0">Departman</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                    @foreach (var item in Model)
+                                    {
+                                    <tr>
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                <div class="m-r-10"><a class="btn btn-circle btn-info text-white">   @Html.DisplayFor(modelItem => item.Name[0])</a></div>
+                                                <div class="">
+                                                    <h4 class="m-b-0 font-16">   @Html.DisplayFor(modelItem => item.Name)</h4>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td> @Html.DisplayFor(modelItem => item.JobId.JobName)</td>
+                                        <td> @Html.DisplayFor(modelItem => item.Grad)</td>
+                                        <td>
+                                            <label class="label label-danger"> @Html.DisplayFor(modelItem => item.Tecnology)</label>
+                                        </td>
+
+                                        <td> @Html.DisplayFor(modelItem => item.Prim)</td>
+                                        <td>
+                                            <h5 class="m-b-0"> @Html.DisplayFor(modelItem => item.JobId.Salary)</h5>
+                                        </td>
+                                        <td>
+                                            <h5 class="m-b-0"> @Html.DisplayFor(modelItem => item.JobId.DepartmentId.DepartmentName)</h5>
+                                        </td>
+                                    </tr>
+
+                                    }
+                                 
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- ============================================================== -->
+            <!-- Table -->
+            <!-- ============================================================== -->
+            <!-- ============================================================== -->
+            <!-- Recent comment and chats -->
+            <!-- ============================================================== -->
+            <!-- ============================================================== -->
+            <!-- Recent comment and chats -->
+            <!-- ============================================================== -->
+        </div>
+        <!-- ============================================================== -->
+        <!-- End Container fluid  -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- footer -->
+        <!-- ============================================================== -->
+        <footer class="footer text-center">
+            Hacı Ali Abim İçin üretilmiştir :)
+        </footer>
+        <!-- ============================================================== -->
+        <!-- End footer -->
+        <!-- ============================================================== -->
+    </div>
+    <!-- ============================================================== -->
+    <!-- End Page wrapper  -->
+    <!-- ============================================================== -->
+</div>
+
+
+<script src="~/wwwroot/assets/libs/jquery/dist/jquery.min.js"></script>
+<!-- Bootstrap tether Core JavaScript -->
+<script src="~/wwwroot/assets/libs/popper.js/dist/umd/popper.min.js"></script>
+<script src="~/wwwroot/assets/libs/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="~/wwwroot/dist/js/app-style-switcher.js"></script>
+<!--Wave Effects -->
+<script src="~/wwwroot/dist/js/waves.js"></script>
+<!--Menu sidebar -->
+<script src="~/wwwroot/dist/js/sidebarmenu.js"></script>
+<!--Custom JavaScript -->
+<script src="~/wwwroot/dist/js/custom.js"></script>
+<!--This page JavaScript -->
+<!--chartis chart-->
+<script src="~/wwwroot/assets/libs/chartist/dist/chartist.min.js"></script>
+<script src="~/wwwroot/assets/libs/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js"></script>
+
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+<script type="text/javascript">
+    // Load google charts
+    google.charts.load('current', { 'packages': ['corechart'] });
+    google.charts.setOnLoadCallback(drawChart);
+
+  var model = [];
+@foreach (var item in Model)
+{
+    @:model.push({
+        @:name: '@item.Name',
+         @:salary: '@item.JobId.Salary',
+           @:prim: '@item.Prim',
+
+    @:});
+}
+    let pie = [['Kişi', 'Prim Yüzdesi']]
+ 
+    model.map((model) => {
+        let tempdata = [];
+        tempdata.push(model.name);
+        tempdata.push(Number(model.prim));
+        pie.push(tempdata)
+
+    })
+ 
+    // Draw the chart and set the chart values
+               function drawChart() {
+                   var data = google.visualization.arrayToDataTable(pie);
+
+                   //[
+
+                   //    ['Task', 'Hours per Day'],
+
+                   //    ['Work', 8],
+
+                   //    ['Eat', 2],
+
+                   //    ['TV', 4],
+
+                   //    ['Gym', 2],
+
+                   //    ['Sleep', 8]
+                   //]
+               // Optional; add a title and set the width and height of the chart
+               var options = { 'title': 'Primin Performansa Dağıtım Yüzdesi', 'width': 550, 'height': 300 };
+
+           // Display the chart inside the <div> element with id="piechart"
+           var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+           chart.draw(data, options);
+    }
+
+
+
+
+
+    $(function () {
+        "use strict";
+        // ============================================================== 
+        // Newsletter
+        // ============================================================== 
+      
+
+        let LineLabel = [];
+      let  LineValue = [];
+
+        model.map((model) => {
+            LineLabel.push(model.name)
+            LineValue.push(Number(model.salary) + Number(model.prim))
+
+        })
+     
+        let LastLineValue = [];
+        LastLineValue.push(LineValue)
+        console.log(LastLineValue)
+        var chart = new Chartist.Line('.campaign', {
+            labels: LineLabel,
+            series: LastLineValue
+
+        }, {
+            low: 3000,
+            high: 8000,
+
+            showArea: true,
+            fullWidth: true,
+            plugins: [
+                Chartist.plugins.tooltip()
+            ],
+            axisY: {
+                onlyInteger: true,
+                scaleMinSpace: 40,
+                offset: 20,
+                labelInterpolationFnc: function (value) {
+                    return (value / 1);
+                }
+            },
+
+        });
+
+        // Offset x1 a tiny amount so that the straight stroke gets a bounding box
+        // Straight lines don't get a bounding box 
+        // Last remark on -> http://www.w3.org/TR/SVG11/coords.html#ObjectBoundingBox
+        chart.on('draw', function (ctx) {
+            if (ctx.type === 'area') {
+                ctx.element.attr({
+                    x1: ctx.x1 + 0.001
+                });
+            }
+        });
+
+        // Create the gradient definition on created event (always after chart re-render)
+        chart.on('created', function (ctx) {
+            var defs = ctx.svg.elem('defs');
+            defs.elem('linearGradient', {
+                id: 'gradient',
+                x1: 0,
+                y1: 1,
+                x2: 0,
+                y2: 0
+            }).elem('stop', {
+                offset: 0,
+                'stop-color': 'rgba(255, 255, 255, 1)'
+            }).parent().elem('stop', {
+                offset: 1,
+                'stop-color': 'rgba(64, 196, 255, 1)'
+            });
+        });
+
+
+        var chart = [chart];
+    });
+</script>
